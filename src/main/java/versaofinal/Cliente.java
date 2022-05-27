@@ -24,23 +24,8 @@ public class Cliente {
 		int pontosFidelidade = 0;
 		String resultado = "Registro de locação para " + getNome() + "\n";
 		for (Locacao locacao : locacoes) {
-			double valorLocacao = 0.0;
-			// determina valor para cada locação
-			switch (locacao.getFilme().getCodigoDePreco()) {
-			case Filme.NORMAL:
-				valorLocacao += 2;
-				if (locacao.getDiasLocados() > 2)
-					valorLocacao += (locacao.getDiasLocados() - 2) * 1.5;
-				break;
-			case Filme.LANCAMENTO:
-				valorLocacao += locacao.getDiasLocados() * 3;
-				break;
-			case Filme.INFANTIL:
-				valorLocacao += 1.5;
-				if (locacao.getDiasLocados() > 3)
-					valorLocacao += (locacao.getDiasLocados() - 3) * 1.5;
-				break;
-			}
+			double valorLocacao = valorDaLocacao(locacao);
+			
 			// adiciona pontos de fidelidade
 			pontosFidelidade++;
 			// adiciona bônus para locações de lançamentos dois dias
@@ -57,6 +42,26 @@ public class Cliente {
 		resultado += "Você ganhou " + String.valueOf(pontosFidelidade)
 				+ " pontos de fidelidade";
 		return resultado;
+	}
+
+	private double valorDaLocacao(Locacao locacao) {
+		double valorLocacao = 0.0;
+		switch (locacao.getFilme().getCodigoDePreco()) {
+		case Filme.NORMAL:
+			valorLocacao += 2;
+			if (locacao.getDiasLocados() > 2)
+				valorLocacao += (locacao.getDiasLocados() - 2) * 1.5;
+			break;
+		case Filme.LANCAMENTO:
+			valorLocacao += locacao.getDiasLocados() * 3;
+			break;
+		case Filme.INFANTIL:
+			valorLocacao += 1.5;
+			if (locacao.getDiasLocados() > 3)
+				valorLocacao += (locacao.getDiasLocados() - 3) * 1.5;
+			break;
+		}
+		return valorLocacao;
 	}
 	
 }
