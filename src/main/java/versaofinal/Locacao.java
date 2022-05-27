@@ -38,5 +38,13 @@ public class Locacao {
 		}
 		return valorLocacao;
 	}
+
+	int getPontosFidelidade() {
+		int pontosFidelidade = 1;
+		if ((getFilme().getCodigoDePreco() == Filme.LANCAMENTO)
+				&& getDiasLocados() > 1)
+			pontosFidelidade++;
+		return pontosFidelidade;
+	}
 	
 }

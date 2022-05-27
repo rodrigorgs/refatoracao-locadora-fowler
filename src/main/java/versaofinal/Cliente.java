@@ -20,32 +20,34 @@ public class Cliente {
 	}
 
 	public String extrato() {
-		double valorTotal = 0.0;
-		int pontosFidelidade = 0;
 		String resultado = "Registro de locação para " + getNome() + "\n";
 		for (Locacao locacao : locacoes) {
-			pontosFidelidade += calculaPontosFidelidade(locacao);
-			
-			// exibe valor para esta locação
 			resultado += "\t" + locacao.getFilme().getTitulo() + "\t"
 					+ String.valueOf(locacao.getValor()) + "\n";
-			valorTotal += locacao.getValor();
 		}
 		// adiciona linhas de rodapé
-		resultado += "Valor devido: " + String.valueOf(valorTotal) + "\n";
-		resultado += "Você ganhou " + String.valueOf(pontosFidelidade)
+		resultado += "Valor devido: " + String.valueOf(getValorTotal()) + "\n";
+		resultado += "Você ganhou " + String.valueOf(getPontosFidelidade())
 				+ " pontos de fidelidade";
 		return resultado;
 	}
 
-	private int calculaPontosFidelidade(Locacao locacao) {
-		int pontosFidelidade = 1;
-		if ((locacao.getFilme().getCodigoDePreco() == Filme.LANCAMENTO)
-				&& locacao.getDiasLocados() > 1)
-			pontosFidelidade++;
+	private double getValorTotal() {
+		double valorTotal = 0.0;
+		for (Locacao locacao : locacoes) {
+			valorTotal += locacao.getValor();
+		}
+		return valorTotal;
+	}
+	
+	private int getPontosFidelidade() {
+		int pontosFidelidade = 0;
+		for (Locacao locacao : locacoes) {
+			pontosFidelidade += locacao.getPontosFidelidade();
+		}
 		return pontosFidelidade;
 	}
-
+	
 	
 	
 }
