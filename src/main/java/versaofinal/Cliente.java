@@ -24,7 +24,7 @@ public class Cliente {
 		int pontosFidelidade = 0;
 		String resultado = "Registro de locação para " + getNome() + "\n";
 		for (Locacao locacao : locacoes) {
-			double valorLocacao = valorDaLocacao(locacao);
+			double valorLocacao = locacao.getValor();
 			
 			// adiciona pontos de fidelidade
 			pontosFidelidade++;
@@ -44,24 +44,6 @@ public class Cliente {
 		return resultado;
 	}
 
-	private double valorDaLocacao(Locacao locacao) {
-		double valorLocacao = 0.0;
-		switch (locacao.getFilme().getCodigoDePreco()) {
-		case Filme.NORMAL:
-			valorLocacao += 2;
-			if (locacao.getDiasLocados() > 2)
-				valorLocacao += (locacao.getDiasLocados() - 2) * 1.5;
-			break;
-		case Filme.LANCAMENTO:
-			valorLocacao += locacao.getDiasLocados() * 3;
-			break;
-		case Filme.INFANTIL:
-			valorLocacao += 1.5;
-			if (locacao.getDiasLocados() > 3)
-				valorLocacao += (locacao.getDiasLocados() - 3) * 1.5;
-			break;
-		}
-		return valorLocacao;
-	}
+	
 	
 }
