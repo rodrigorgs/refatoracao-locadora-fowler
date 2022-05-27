@@ -24,8 +24,6 @@ public class Cliente {
 		int pontosFidelidade = 0;
 		String resultado = "Registro de locação para " + getNome() + "\n";
 		for (Locacao locacao : locacoes) {
-			double valorLocacao = locacao.getValor();
-			
 			// adiciona pontos de fidelidade
 			pontosFidelidade++;
 			// adiciona bônus para locações de lançamentos dois dias
@@ -34,8 +32,8 @@ public class Cliente {
 				pontosFidelidade++;
 			// exibe valor para esta locação
 			resultado += "\t" + locacao.getFilme().getTitulo() + "\t"
-					+ String.valueOf(valorLocacao) + "\n";
-			valorTotal += valorLocacao;
+					+ String.valueOf(locacao.getValor()) + "\n";
+			valorTotal += locacao.getValor();
 		}
 		// adiciona linhas de rodapé
 		resultado += "Valor devido: " + String.valueOf(valorTotal) + "\n";
