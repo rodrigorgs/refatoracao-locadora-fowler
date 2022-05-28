@@ -9,20 +9,32 @@ public class Filme {
 	public static final int LANCAMENTO = 1;
 
 	private String titulo;
-
-	private int codigoDePreco;
+	
+	private Preco preco;
 
 	public Filme(String titulo, int codigoDePreco) {
 		this.titulo = titulo;
-		this.codigoDePreco = codigoDePreco;
+		setCodigoDePreco(codigoDePreco);
 	}
 
 	public int getCodigoDePreco() {
-		return codigoDePreco;
+		return preco.getCodigoDePreco();
 	}
 
 	public void setCodigoDePreco(int codigoDePreco) {
-		this.codigoDePreco = codigoDePreco;
+		switch (codigoDePreco) {
+		case Filme.NORMAL:
+			preco = new PrecoNormal();
+			break;
+		case Filme.LANCAMENTO:
+			preco = new PrecoLancamento();
+			break;
+		case Filme.INFANTIL:
+			preco = new PrecoInfantil();
+			break;
+		default:
+			throw new IllegalArgumentException("Código de preço incorreto");
+		}
 	}
 
 	public String getTitulo() {
@@ -30,23 +42,7 @@ public class Filme {
 	}
 
 	public double getValor(int diasLocados) {
-		double valorLocacao = 0.0;
-		switch (codigoDePreco) {
-		case Filme.NORMAL:
-			valorLocacao += 2;
-			if (diasLocados > 2)
-				valorLocacao += (diasLocados - 2) * 1.5;
-			break;
-		case Filme.LANCAMENTO:
-			valorLocacao += diasLocados * 3;
-			break;
-		case Filme.INFANTIL:
-			valorLocacao += 1.5;
-			if (diasLocados > 3)
-				valorLocacao += (diasLocados - 3) * 1.5;
-			break;
-		}
-		return valorLocacao;
+		return preco.getValor(diasLocados);
 	}
 	
 }
