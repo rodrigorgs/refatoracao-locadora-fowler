@@ -28,5 +28,25 @@ public class Filme {
 	public String getTitulo() {
 		return titulo;
 	}
+
+	public double getValor(int diasLocados) {
+		double valorLocacao = 0.0;
+		switch (codigoDePreco) {
+		case Filme.NORMAL:
+			valorLocacao += 2;
+			if (diasLocados > 2)
+				valorLocacao += (diasLocados - 2) * 1.5;
+			break;
+		case Filme.LANCAMENTO:
+			valorLocacao += diasLocados * 3;
+			break;
+		case Filme.INFANTIL:
+			valorLocacao += 1.5;
+			if (diasLocados > 3)
+				valorLocacao += (diasLocados - 3) * 1.5;
+			break;
+		}
+		return valorLocacao;
+	}
 	
 }
